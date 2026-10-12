@@ -1,12 +1,66 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Airwise Brand Identity</title><link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#e9eeec;display:flex;justify-content:center;padding:24px;box-sizing:border-box}.wrap{max-width:100%;overflow-x:auto}</style></head><body><div class="wrap">
-<div style="width:1200px;height:760px;box-sizing:border-box;display:flex;background:#f6f8f7;font-family:DM Sans,sans-serif">
-<div style="width:460px;background:#0b3d38;color:#eafaf6;padding:64px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
-<div style="display:flex;align-items:center;gap:16px"><svg width="56" height="56" viewBox="0 0 56 56" role="img" aria-label="Airwise logo mark"><rect width="56" height="56" rx="14" fill="#2dd4bf"/><path d="M12 22c6-6 10 6 16 0s10 6 16 0M12 30c6-6 10 6 16 0s10 6 16 0M12 38c6-6 10 6 16 0s10 6 16 0" fill="none" stroke="#0b3d38" stroke-width="3.5" stroke-linecap="round"/></svg><span style="font:700 44px Sora,sans-serif">Airwise</span></div>
-<div><p style="margin:0 0 12px;font:600 14px DM Sans,sans-serif;letter-spacing:2px;color:#2dd4bf">TAGLINE</p><p style="margin:0;font:700 34px/1.2 Sora,sans-serif">Find HVAC waste before it shows up on your power bill.</p></div>
-<p style="margin:0;font-size:15px;color:#9fd8cf">Student concept for AUT ENGE803</p></div>
-<div style="flex:1;padding:64px;box-sizing:border-box;display:flex;flex-direction:column;gap:40px;color:#12221e">
-<div><p style="margin:0 0 16px;font:700 20px Sora,sans-serif">Colour</p><div style="display:flex;gap:16px"><div style="flex:1"><div style="height:96px;border-radius:12px;background:#0b3d38;border:1px solid #cfd8d4"></div><p style="margin:8px 0 0;font:700 15px DM Sans,sans-serif;color:#12221e">Deep teal</p><p style="margin:0;font:400 14px DM Sans,sans-serif;color:#566660">#0b3d38</p></div><div style="flex:1"><div style="height:96px;border-radius:12px;background:#0f766e;border:1px solid #cfd8d4"></div><p style="margin:8px 0 0;font:700 15px DM Sans,sans-serif;color:#12221e">Teal</p><p style="margin:0;font:400 14px DM Sans,sans-serif;color:#566660">#0f766e</p></div><div style="flex:1"><div style="height:96px;border-radius:12px;background:#2dd4bf;border:1px solid #cfd8d4"></div><p style="margin:8px 0 0;font:700 15px DM Sans,sans-serif;color:#12221e">Aqua</p><p style="margin:0;font:400 14px DM Sans,sans-serif;color:#566660">#2dd4bf</p></div><div style="flex:1"><div style="height:96px;border-radius:12px;background:#f6f8f7;border:1px solid #cfd8d4"></div><p style="margin:8px 0 0;font:700 15px DM Sans,sans-serif;color:#12221e">Mist</p><p style="margin:0;font:400 14px DM Sans,sans-serif;color:#566660">#f6f8f7</p></div><div style="flex:1"><div style="height:96px;border-radius:12px;background:#12221e;border:1px solid #cfd8d4"></div><p style="margin:8px 0 0;font:700 15px DM Sans,sans-serif;color:#12221e">Ink</p><p style="margin:0;font:400 14px DM Sans,sans-serif;color:#566660">#12221e</p></div></div></div>
-<div><p style="margin:0 0 16px;font:700 20px Sora,sans-serif">Typography</p><p style="margin:0;font:700 36px Sora,sans-serif">Sora Bold: headlines</p><p style="margin:8px 0 0;font:400 22px DM Sans,sans-serif">DM Sans Regular: body text and interface labels</p></div>
-<div><p style="margin:0 0 12px;font:700 20px Sora,sans-serif">Voice</p><p style="margin:0;font:400 20px/1.5 DM Sans,sans-serif;color:#566660">Plain English, practical and honest about uncertainty. Alerts say what is wrong, what it may cost and what to do next.</p></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airwise – Brand Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--deep:#0b3d38;--teal:#0f766e;--aqua:#2dd4bf;--mist:#f6f8f7;--ink:#12221e;--mute:#566660;--line:#dde4e1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mist);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.55}
+h1,h2,h3,.wordmark{font-family:Sora,"DM Sans",system-ui,sans-serif;margin:0}
+.w{max-width:1000px;margin:0 auto;padding:0 20px}
+.hero{background:var(--deep);color:#eafaf6;padding:56px 0}
+.lockup{display:flex;align-items:center;gap:18px}
+.wordmark{font-size:clamp(36px,7vw,56px);font-weight:700}
+.tag{font-size:12px;letter-spacing:2px;color:var(--aqua);font-weight:700;margin:36px 0 8px}
+.hero h1{font-size:clamp(24px,4.5vw,36px);line-height:1.2;max-width:640px}
+section{padding:40px 0 8px}
+h2{font-size:24px;margin-bottom:6px}
+.lead{color:var(--mute);margin:0 0 20px;max-width:640px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.sw{border-radius:14px;padding:18px;min-height:130px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line)}
+.sw b{font-family:Sora,sans-serif}.sw span{font-size:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.logos{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.lg{border-radius:14px;padding:28px;display:flex;align-items:center;gap:14px;border:1px solid var(--line)}
+.lg .wordmark{font-size:32px}
+footer{padding:36px 0 48px;color:var(--mute);font-size:13px}
+a{color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="hero"><div class="w">
+<div class="lockup">
+<svg width="64" height="64" viewBox="0 0 56 56" role="img" aria-label="Airwise logo mark"><rect width="56" height="56" rx="14" fill="#2dd4bf"/><path d="M12 22c6-6 10 6 16 0s10 6 16 0M12 30c6-6 10 6 16 0s10 6 16 0M12 38c6-6 10 6 16 0s10 6 16 0" fill="none" stroke="#0b3d38" stroke-width="3.5" stroke-linecap="round"/></svg>
+<span class="wordmark">Airwise</span></div>
+<p class="tag">TAGLINE</p>
+<h1>Find HVAC waste before it shows up on your power bill.</h1>
 </div></div>
-</div></body></html>
+
+<div class="w">
+<section><h2>Logo</h2><p class="lead">A teal mark with three wave lines, for air flow. Use the aqua mark on dark backgrounds and on light ones.</p>
+<div class="logos">
+<div class="lg" style="background:var(--deep);color:#eafaf6"><svg width="48" height="48" viewBox="0 0 56 56" role="img" aria-label="Airwise logo mark"><rect width="56" height="56" rx="14" fill="#2dd4bf"/><path d="M12 22c6-6 10 6 16 0s10 6 16 0M12 30c6-6 10 6 16 0s10 6 16 0M12 38c6-6 10 6 16 0s10 6 16 0" fill="none" stroke="#0b3d38" stroke-width="3.5" stroke-linecap="round"/></svg><span class="wordmark">Airwise</span></div>
+<div class="lg" style="background:#fff;color:var(--ink)"><svg width="48" height="48" viewBox="0 0 56 56" role="img" aria-label="Airwise logo mark"><rect width="56" height="56" rx="14" fill="#2dd4bf"/><path d="M12 22c6-6 10 6 16 0s10 6 16 0M12 30c6-6 10 6 16 0s10 6 16 0M12 38c6-6 10 6 16 0s10 6 16 0" fill="none" stroke="#0b3d38" stroke-width="3.5" stroke-linecap="round"/></svg><span class="wordmark">Airwise</span></div>
+</div></section>
+
+<section><h2>Colour</h2><p class="lead">A calm teal palette. Aqua is used for fills and highlights, not for small text on light backgrounds.</p>
+<div class="grid">
+<div class="sw" style="background:#0b3d38;color:#eafaf6"><b>Deep teal</b><span>#0b3d38 · backgrounds</span></div>
+<div class="sw" style="background:#0f766e;color:#fff"><b>Teal</b><span>#0f766e · buttons, links</span></div>
+<div class="sw" style="background:#2dd4bf;color:#12221e"><b>Aqua</b><span>#2dd4bf · highlights</span></div>
+<div class="sw" style="background:#f6f8f7;color:#12221e"><b>Mist</b><span>#f6f8f7 · page background</span></div>
+<div class="sw" style="background:#12221e;color:#eafaf6"><b>Ink</b><span>#12221e · text</span></div>
+</div></section>
+
+<section><h2>Typography</h2>
+<div class="card"><p style="margin:0;font:700 34px Sora,sans-serif">Sora Bold: headlines</p><p style="margin:10px 0 0;font-size:20px">DM Sans Regular: body text and interface labels</p></div></section>
+
+<section><h2>Voice</h2>
+<div class="card"><p style="margin:0">Plain English, practical and honest about uncertainty. Alerts say what is wrong, what it may cost and what to do next. Figures from simulated data are always labelled as simulated.</p></div></section>
+</div>
+<footer><div class="w">Airwise is a student concept for AUT ENGE803. <a href="index.html">Back to the Airwise home page</a></div></footer>
+</body>
+</html>

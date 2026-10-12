@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Airwise Prototype – HVAC Dashboard (demo data)</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--ink:#14231f;--mute:#5d6b66;--line:#dfe5e2;--acc:#0f766e;--warn:#b45309;--bad:#b91c1c;--ok:#15803d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1614;--card:#16211e;--ink:#e8f0ed;--mute:#9aaba5;--line:#263430;--acc:#2dd4bf;--warn:#fbbf24;--bad:#f87171;--ok:#4ade80}}
+:root[data-theme="dark"]{--bg:#0e1614;--card:#16211e;--ink:#e8f0ed;--mute:#9aaba5;--line:#263430;--acc:#2dd4bf;--warn:#fbbf24;--bad:#f87171;--ok:#4ade80}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.45}
+.wrap{max-width:1040px;margin:0 auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+h1,h2,h3{font-family:Sora,"DM Sans",system-ui,sans-serif}h1{font-size:22px;margin:0}h2{font-size:16px;margin:0 0 10px}
+.banner{background:var(--card);border:1px dashed var(--warn);color:var(--warn);padding:8px 12px;border-radius:10px;font-size:13px;margin-bottom:14px}
+.grid{display:grid;gap:12px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi b{display:block;font-size:28px;color:var(--acc)}.kpi span{font-size:13px;color:var(--mute)}
+.two{grid-template-columns:1fr 1fr}
+@media (max-width:720px){.two{grid-template-columns:1fr}}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mute);font-weight:600;font-size:12px}
+.pill{padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid currentColor}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.alert{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.alert.done{opacity:.6}
+.alert h3{font-size:14px;margin:0 0 4px}.alert p{margin:0 0 8px;font-size:13px;color:var(--mute)}
+button{font:inherit;font-size:13px;font-weight:600;border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:9px;padding:7px 12px;cursor:pointer}
+button.ghost{background:transparent;color:var(--acc)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button:not(.ghost){color:#06201c}}
+.small{font-size:12px;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1 style="display:flex;align-items:center;gap:10px"><svg width="34" height="34" viewBox="0 0 56 56" role="img" aria-label="Airwise logo"><rect width="56" height="56" rx="14" fill="#2dd4bf"/><path d="M12 22c6-6 10 6 16 0s10 6 16 0M12 30c6-6 10 6 16 0s10 6 16 0M12 38c6-6 10 6 16 0s10 6 16 0" fill="none" stroke="#0b3d38" stroke-width="3.5" stroke-linecap="round"/></svg>Airwise <span class="small">· Level 3, 24 Example St (demo building)</span></h1><span class="small" id="clock"></span></header>
+<div class="banner">Prototype using simulated demo data. No real building, sensors or customer results are shown.</div>
+
+<div class="grid kpis">
+<div class="card kpi"><b id="k-zones">4</b><span>Zones monitored</span></div>
+<div class="card kpi"><b id="k-open">3</b><span>Open alerts</span></div>
+<div class="card kpi"><b id="k-rate">0 / 3</b><span>Alerts actioned (tracks our key assumption)</span></div>
+<div class="card kpi"><b id="k-hours">126 h</b><span>Weekly HVAC run-hours (demo schedule)</span></div>
+</div>
+
+<div class="grid two">
+<section class="card"><h2>Live sensor feed (simulated)</h2>
+<div class="scroll"><table><thead><tr><th>Zone</th><th>Temp °C</th><th>Setpoint</th><th>Status</th></tr></thead><tbody id="zones"></tbody></table></div></section>
+
+<section class="card"><h2>AI alerts</h2><div id="alerts"></div></section>
+
+<section class="card" style="grid-column:1/-1"><h2>Suggested schedule</h2>
+<div class="scroll"><table><thead><tr><th>Day</th><th>Current</th><th>Suggested</th></tr></thead><tbody id="sched"></tbody></table></div>
+<p class="small" id="sched-note">Suggestion is generated from occupancy and temperature patterns in the demo data.</p>
+<button id="apply">Apply suggested schedule</button> <button class="ghost" id="reset">Reset demo</button></section>
+</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const zones0=[{n:"Open plan – L3",t:22.4,s:22,st:"ok"},{n:"Meeting room A",t:19.1,s:21,st:"warn"},{n:"Server cupboard",t:26.8,s:24,st:"bad"},{n:"Reception",t:21.7,s:22,st:"ok"}];
+const alerts0=[
+{id:1,h:"Alert 1: After-hours operation",sev:"Medium",sc:"warn",c:85,p:"HVAC appears to be operating outside the expected schedule.",cost:"Estimated additional energy cost: $6.50–$33.50 per week (illustrative, based on published NZ heat pump running costs).",ev:"Estimated from simulated operating data; not measured savings.",act:"Check the operating schedule and confirm whether after-hours use is expected."},
+{id:2,h:"Alert 2: Unusual HVAC performance",sev:"High",sc:"bad",c:75,p:"The system's simulated readings differ from its expected operating pattern.",cost:"Possible energy waste; financial impact not yet established.",ev:"Anomaly flagged in simulated data, not a confirmed equipment fault.",act:"Review the readings and arrange an inspection if the issue persists."},
+{id:3,h:"Alert 3: Scheduling optimisation",sev:"Low",sc:"ok",c:80,p:"The current HVAC schedule may not match the building's occupancy pattern.",cost:"Potential savings: 10–30% of heating and cooling energy use from optimised scheduling (EECA benchmark), subject to validation.",ev:"Modelled opportunity based on simulated data; savings are not verified.",act:"Review the suggested schedule and test it while maintaining occupant comfort."}];
+const days=[["Weekdays","05:00–23:00 (18 h)","06:30–18:30 (12 h)",18*5,12*5],["Saturday","05:00–23:00 (18 h)","08:00–13:00 (5 h)",18,5],["Sunday","05:00–23:00 (18 h)","Off (0 h)",18,0]];
+let zones,alerts,applied;
+function reset(){zones=JSON.parse(JSON.stringify(zones0));alerts=alerts0.map(a=>({...a,done:false}));applied=false;render()}
+function render(){
+$("zones").innerHTML=zones.map(z=>`<tr><td>${z.n}</td><td>${z.t.toFixed(1)}</td><td>${z.s}</td><td><span class="pill ${z.st}">${z.st=="ok"?"Normal":z.st=="warn"?"Check":"Fault"}</span></td></tr>`).join("");
+$("alerts").innerHTML=alerts.map(a=>`<div class="alert ${a.done?"done":""}"><h3>${a.h} <span class="pill ${a.sc}">${a.sev} severity · ${a.c}% confidence</span></h3><p>${a.p}</p><p><b>Cost impact:</b> ${a.cost}<br><b>Evidence:</b> ${a.ev}<br><b>Recommended action:</b> ${a.act}</p>${a.done?'<span class="pill ok">Actioned</span>':`<button onclick="act(${a.id})">Mark as actioned</button>`}</div>`).join("");
+const d=alerts.filter(a=>a.done).length;
+$("k-open").textContent=3-d;$("k-rate").textContent=d+" / 3";
+$("sched").innerHTML=days.map(r=>`<tr><td>${r[0]}</td><td>${applied?r[2]:r[1]}</td><td>${applied?"Applied":r[2]}</td></tr>`).join("");
+$("k-hours").textContent=(applied?days.reduce((a,r)=>a+r[4],0):days.reduce((a,r)=>a+r[3],0))+" h";
+$("sched-note").textContent=applied?"Schedule applied in demo. Run-hours updated from the demo schedule, not a measured saving.":"Suggestion is generated from occupancy and temperature patterns in the demo data.";
+$("apply").disabled=applied;
+}
+function act(id){alerts.find(a=>a.id==id).done=true;render()}
+$("apply").onclick=()=>{applied=true;render()};
+$("reset").onclick=reset;
+setInterval(()=>{zones.forEach(z=>{z.t=Math.max(15,z.t+(Math.random()-.5)*.3)});$("zones").innerHTML=zones.map(z=>`<tr><td>${z.n}</td><td>${z.t.toFixed(1)}</td><td>${z.s}</td><td><span class="pill ${z.st}">${z.st=="ok"?"Normal":z.st=="warn"?"Check":"Fault"}</span></td></tr>`).join("");$("clock").textContent=new Date().toLocaleTimeString()},2000);
+reset();
+</script>
+</body>
+</html>
